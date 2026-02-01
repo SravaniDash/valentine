@@ -5,32 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Valentine?</title>
 
+  <!-- Pretty font -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
       height: 100vh;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #fafafa;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #fde2e4;
+      font-family: "Inter", system-ui, sans-serif;
     }
 
     .card {
       background: white;
-      padding: 32px 28px;
-      border-radius: 16px;
+      padding: 36px 30px;
+      border-radius: 20px;
       width: 90%;
       max-width: 360px;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      position: relative;
+      z-index: 2;
     }
 
     h1 {
-      font-size: 22px;
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
       font-weight: 600;
-      margin-bottom: 24px;
-      color: #111;
+      margin-bottom: 28px;
+      color: #222;
     }
 
     .buttons {
@@ -40,28 +47,49 @@
 
     button {
       font-size: 16px;
-      padding: 10px 20px;
-      border-radius: 10px;
+      padding: 10px 22px;
+      border-radius: 12px;
       border: none;
       cursor: pointer;
     }
 
     #yes {
-      background: #111;
+      background: #ff6b81;
       color: white;
     }
 
     #no {
       position: absolute;
-      left: 120px;
-      background: #e5e5e5;
-      color: #555;
+      left: 130px;
+      background: #f1f1f1;
+      color: #666;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 18px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0);
+        opacity: 0.6;
+      }
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
+
   <div class="card">
-    <h1>Will you be my Valentine?</h1>
+    <h1>Will you be my Valentine,<br>Harish?</h1>
     <div class="buttons">
       <button id="yes">Yes</button>
       <button id="no">No</button>
@@ -78,10 +106,7 @@
       noBtn.style.transform = `translate(${x}px, ${y}px)`;
     }
 
-    // Desktop hover
     noBtn.addEventListener("mouseenter", moveButton);
-
-    // Mobile touch
     noBtn.addEventListener("touchstart", (e) => {
       e.preventDefault();
       moveButton();
@@ -95,16 +120,37 @@
           flex-direction:column;
           justify-content:center;
           align-items:center;
-          background:#111;
-          color:white;
-          font-family: system-ui;
+          background:#fde2e4;
+          font-family:'Inter', system-ui;
           text-align:center;
+          padding:20px;
         ">
-          <h1 style="font-weight:600;">Correct choice.</h1>
-          <p style="opacity:0.8;">❤️</p>
+          <h1 style="
+            font-family:'Playfair Display', serif;
+            font-size:26px;
+            margin-bottom:12px;
+          ">
+            Excellent decision.
+          </h1>
+          <p style="font-size:16px; opacity:0.8;">
+            You are now legally my Valentine 💗
+          </p>
+          <p style="margin-top:20px;">🫶🫶🫶</p>
         </div>
       `;
     });
+
+    // create floating hearts
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 7000);
+    }, 500);
   </script>
 </body>
 </html>
